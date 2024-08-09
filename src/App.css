@@ -1,0 +1,87 @@
+#root {
+  max-width: 100vw;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 0.1rem;
+  width: 25vw;
+  height: 50vh;
+}
+
+.cardHr {
+  margin: 0rem;
+}
+
+.producto {
+  height: 25vh;
+  width: 100%;
+}
+.card p {
+  margin: 0rem;
+  font-size: 10px;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.footer {
+  color: white;
+  height: 7vh;
+  background-color: black;
+  padding: 1.5vh;
+}
+.home {
+  height: 86vh;
+  width: 100vw;
+  color: white;
+}
+.headerContent {
+  background-image: url("/src/assets/img/Header.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 6vh;
+  height: 30vh;
+}
+.hrHeader {
+  width: 75%;
+  margin: 0 auto; /* Centra la línea horizontal horizontalmente */
+  border: none; /* Elimina cualquier borde predeterminado */
+  border-top: 2px solid white;
+}
+.icon {
+  max-width: auto;
+  max-height: 3vh;
+}
+.navegation {
+  height: 7vh;
+}
