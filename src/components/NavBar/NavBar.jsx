@@ -1,6 +1,14 @@
 import "../../App.css";
+import { Register } from "../Register/Register";
+import { Modal } from "react-bootstrap"; // Asegúrate de tener react-bootstrap instalado
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Login } from "../Login/Login";
 
 export const NavBar = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [showModalLogin, setShowModalLogin] = useState(false);
+
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
@@ -44,6 +52,7 @@ export const NavBar = () => {
           }`}
           type="button"
           id="Login"
+          onClick={() => setShowModalLogin(true)}
         >
           <img src="../img/candadoConLlave2.png" className="icon" alt="Login" />
           Login
@@ -64,6 +73,7 @@ export const NavBar = () => {
           }`}
           type="button"
           id="Register"
+          onClick={() => setShowModal(true)}
         >
           <img
             src="../img/candadoConLlave3.png"
@@ -86,6 +96,28 @@ export const NavBar = () => {
           </button>
         </div>
       </div>
+      <Modal show={showModalLogin} onHide={() => setShowModalLogin(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Login />
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={() => setShowModalLogin(false)}>Close</button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registro</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Register />
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={() => setShowModal(false)}>Close</button>
+        </Modal.Footer>
+      </Modal>
     </nav>
   );
 };
