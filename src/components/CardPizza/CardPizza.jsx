@@ -1,12 +1,13 @@
 import "../../App.css";
 
-export const CardPizza = ({ name, price, ingredients, img }) => {
+export const CardPizza = ({ img, name, price, ingredients }) => {
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
   }
+
   return (
-    <article className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-3 mx-1 ">
+    <article className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mt-3 mx-1 ms-5">
       <div className="card mx-2">
         <img
           src={img}
@@ -16,15 +17,19 @@ export const CardPizza = ({ name, price, ingredients, img }) => {
         <div className="">
           <h5 className="card-title fw-light mb-1 fw-bold">Pizza {name}</h5>
           <hr className="cardHr" />
-          <p> Ingredientes:</p>
-          <p className="fw-light ">
+          <div className="d-flex flex-row align-items-center justify-content-center">
             <img
               src="/src/assets/img/pizza3.png"
-              className="icon"
+              className="icon2"
               alt="pizza"
             />
-            {ingredients.join(", ")}
-          </p>
+
+            <ul>
+              {ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+          </div>
           <hr className="cardHr" />
           <span className="h5 fw-bold green mt-5 ms-3">
             Precio: ${formatNumber(price)}

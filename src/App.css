@@ -58,9 +58,10 @@
   height: 7vh;
   background-color: black;
   padding: 1.5vh;
+  margin-top: 2rem;
 }
 .home {
-  height: 86vh;
+  height: 86%;
   width: 100vw;
   color: white;
 }
@@ -81,6 +82,11 @@
 .icon {
   max-width: auto;
   max-height: 3vh;
+}
+.icon2 {
+  max-width: auto;
+  max-height: 10vh;
+  justify-content: ;
 }
 .navegation {
   height: 7vh;
