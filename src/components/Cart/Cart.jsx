@@ -1,13 +1,37 @@
-import { pizzaCart } from "../../assets/js/pizzas";
+//import { pizzaCart } from "../../assets/js/pizzas";
 import "../../App.css";
 
 import { CartHandler } from "./CartHandler";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Cart = () => {
-  const [total, setTotal] = useState(19190);
+  const [pizzas, setPizza] = useState([]);
+  const [err, setErr] = useState(null);
+  const [total, setTotal] = useState("");
+  const [pizzaList, setPizzaList] = useState(pizzas);
 
-  const [pizzaList, setPizzaList] = useState(pizzaCart);
+  useEffect(() => {
+    const fetchPizza = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/pizzas");
+        const data = await response.json();
+        setPizza(data);
+      } catch (err) {
+        setErr(err);
+      }
+    };
+
+    fetchPizza();
+  }, []);
+
+  useEffect(() => {
+    setPizzaList(pizzas.map((pizza) => ({ ...pizza, count: 0 })));
+  }, [pizzas]);
+
+  useEffect(() => {
+    calcularTotal();
+  });
+
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
@@ -32,19 +56,24 @@ const Cart = () => {
     const pizza = pizzaList.find((pizza) => pizza.id === id);
     pizza.count++;
     setPizzaList([...pizzaList]);
-    calcularTotal();
+    //calcularTotal();
   }
   function decrementarPizza(id) {
     const pizza = pizzaList.find((pizza) => pizza.id === id);
     if (pizza.count === 1) {
       pizza.count = 0;
       delPizza(id);
-      calcularTotal();
+      //calcularTotal();
+      return;
+    }
+    if (pizza.count === 0) {
+      delPizza(id);
+
       return;
     }
     pizza.count--;
     setPizzaList([...pizzaList]);
-    calcularTotal();
+    //calcularTotal();
   }
 
   return (

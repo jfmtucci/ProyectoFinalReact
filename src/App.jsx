@@ -1,8 +1,9 @@
 import "./App.css";
-import Cart from "./components/Cart/Cart.jsx";
+//import Cart from "./components/Cart/Cart.jsx";
 import { Footer } from "./components/Footer/Footer.jsx";
 import { Home } from "./components/Home/Home.jsx";
 import { NavBar } from "./components/NavBar/NavBar.jsx";
+import Pizza from "./components/Pizza/Pizza.jsx";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <NavBar />
       <Home />
       <Footer />
-      <Cart />
+      {/*<Cart />*/}
+      <Pizza />
     </div>
   );
 }

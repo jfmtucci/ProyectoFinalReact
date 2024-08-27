@@ -1,14 +1,39 @@
+import { useEffect, useState } from "react";
 import "../../App.css";
 import { CardPizza } from "../CardPizza/CardPizza";
 import { Header } from "../Header/Header";
-import { pizzas } from "../../assets/js/pizzas.js";
+//import { pizzas } from "../../assets/js/pizzas.js";
 
 export const Home = () => {
+  const [pizza, setPizza] = useState([]);
+  const [err, setErr] = useState(null);
+
+  useEffect(() => {
+    const fetchPizza = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/pizzas");
+        const data = await response.json();
+        setPizza(data);
+      } catch (err) {
+        setErr(err);
+      }
+    };
+    fetchPizza();
+  }, []);
+
+  if (err) {
+    return <div>Error: {err}</div>;
+  }
+
+  if (!pizza) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="home">
       <Header />
       <div className="row flex-row flex-wrap mt-4">
-        {pizzas.map((pizza) => (
+        {pizza.map((pizza) => (
           <div className="col" key={pizza.id}>
             <CardPizza
               img={pizza.img}
