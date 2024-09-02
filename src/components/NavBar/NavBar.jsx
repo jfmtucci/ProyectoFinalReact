@@ -1,11 +1,13 @@
 import "../../App.css";
-import { Register } from "../Register/Register";
+import { Register } from "../../pages/Register/Register";
 import { Modal } from "react-bootstrap"; // Asegúrate de tener react-bootstrap instalado
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { Login } from "../Login/Login";
+import { Login } from "../../pages/Login/Login";
 
-export const NavBar = () => {
+import { Link } from "react-router-dom";
+
+export const NavBar = ({ token, handleToken }) => {
   const [showModal, setShowModal] = useState(false);
   const [showModalLogin, setShowModalLogin] = useState(false);
 
@@ -13,8 +15,7 @@ export const NavBar = () => {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
   }
-  const total = formatNumber(25000);
-  const token = false;
+  const total = formatNumber(0);
 
   return (
     <nav
@@ -25,19 +26,20 @@ export const NavBar = () => {
         <h3 className="navbar-brand ms-2" href="#">
           Pizzeria Mamma Mia!
         </h3>
-        <button
+        <Link
           className="btn btn-outline-light me-2 transparent-btn d-flex align-items-center"
-          type="button"
+          to="/"
         >
           <img src="../img/pizza3.png" className="icon" alt="Pizza" />
           HOME
-        </button>
-        <button
+        </Link>
+        <Link
           className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
             !token ? "d-none" : ""
           }`}
           type="button"
           id="Profile"
+          to="/profile"
         >
           <img
             src="../img/candado abierto.png"
@@ -45,35 +47,41 @@ export const NavBar = () => {
             alt="Profile"
           />
           Profile
-        </button>
-        <button
+        </Link>
+        <Link
           className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
             token ? "d-none" : ""
           }`}
           type="button"
           id="Login"
-          onClick={() => setShowModalLogin(true)}
+          //onClick={() => setShowModalLogin(true)}
+          to="/login"
         >
           <img src="../img/candadoConLlave2.png" className="icon" alt="Login" />
           Login
-        </button>
-        <button
+        </Link>
+        <Link
           className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
             !token ? "d-none" : ""
           }`}
           type="button"
           id="Logout"
+          onClick={() => {
+            handleToken(false);
+          }}
+          to="/"
         >
           <img src="../img/candado cerrado.png" className="icon" alt="LogOut" />
           LogOut
-        </button>
-        <button
+        </Link>
+        <Link
           className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
             token ? "d-none" : ""
           }`}
           type="button"
           id="Register"
-          onClick={() => setShowModal(true)}
+          //onClick={() => setShowModal(true)}
+          to="/register"
         >
           <img
             src="../img/candadoConLlave3.png"
@@ -81,19 +89,15 @@ export const NavBar = () => {
             alt="Register"
           />
           Register
-        </button>
+        </Link>
         <div className="container d-flex justify-content-end">
-          <button
+          <Link
             className="btn btn-outline-light me-2 transparent-btn d-flex align-items-center"
             type="button"
+            to="/Cart"
           >
-            <img
-              src="../img/carro-compras-realista.png"
-              className="icon"
-              alt="Total"
-            />
-            Total: {total}
-          </button>
+            🛒 Total: ${total}
+          </Link>
         </div>
       </div>
       <Modal show={showModalLogin} onHide={() => setShowModalLogin(false)}>

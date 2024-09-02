@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import "../../App.css";
+import { useNavigate, useParams } from "react-router";
 
 const Pizza = () => {
+  const navigate = useNavigate();
   const [pizza, setPizza] = useState(null);
   const [err, setErr] = useState(null);
+  const { id } = useParams();
 
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
@@ -13,7 +16,7 @@ const Pizza = () => {
   useEffect(() => {
     const fetchPizza = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/pizzas/p001");
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
         const data = await response.json();
         setPizza(data);
       } catch (err) {
@@ -21,7 +24,7 @@ const Pizza = () => {
       }
     };
     fetchPizza();
-  }, []);
+  }, [id]);
 
   if (err) {
     return <div>Error: {err}</div>;
@@ -71,13 +74,9 @@ const Pizza = () => {
                     padding: "0.5rem",
                     fontSize: "0.5rem",
                   }}
+                  onClick={() => navigate("/")}
                 >
-                  Ver Más{"    "}
-                  <img
-                    src="/src/assets/img/eyes.png"
-                    className="icon"
-                    alt="ojos"
-                  />
+                  Volver
                 </button>
                 <button
                   type="button"
@@ -88,6 +87,7 @@ const Pizza = () => {
                     backgroundColor: "black",
                     color: "white",
                   }}
+                  onClick={() => navigate("/Cart")}
                 >
                   Añadir{"    "}
                   <img

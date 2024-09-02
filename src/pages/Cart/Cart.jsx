@@ -77,7 +77,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4" style={{ width: "100vw" }}>
       <h1>Carrito de Compras</h1>
       <div className="row g-4">
         {pizzaList.map((pizza) => {

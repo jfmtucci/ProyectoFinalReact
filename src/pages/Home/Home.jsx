@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../App.css";
-import { CardPizza } from "../CardPizza/CardPizza";
-import { Header } from "../Header/Header";
+
+import { CardPizza } from "../../components/CardPizza/CardPizza";
+import { Header } from "../../components/Header/Header";
 //import { pizzas } from "../../assets/js/pizzas.js";
 
 export const Home = () => {
@@ -40,6 +41,7 @@ export const Home = () => {
               name={pizza.name}
               price={pizza.price}
               ingredients={pizza.ingredients}
+              id={pizza.id}
             />
           </div>
         ))}

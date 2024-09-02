@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router";
 import "../../App.css";
 
-export const CardPizza = ({ img, name, price, ingredients }) => {
+export const CardPizza = ({ img, name, price, ingredients, id }) => {
+  const navigate = useNavigate();
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
@@ -42,6 +44,7 @@ export const CardPizza = ({ img, name, price, ingredients }) => {
                 padding: "0.5rem",
                 fontSize: "0.5rem",
               }}
+              onClick={() => navigate(`/pizza/${id}`)}
             >
               Ver Más{"    "}
               <img src="/src/assets/img/eyes.png" className="icon" alt="ojos" />
@@ -55,6 +58,7 @@ export const CardPizza = ({ img, name, price, ingredients }) => {
                 backgroundColor: "black",
                 color: "white",
               }}
+              onClick={() => navigate("/Cart")}
             >
               Añadir{"    "}
               <img

@@ -1,23 +1,23 @@
 import "../../App.css";
 import { useState } from "react";
+import { NavBar } from "../../components/NavBar/NavBar";
+import { useNavigate } from "react-router";
 
-export const Register = () => {
+export const Login = ({ handleToken, handleUser }) => {
+  const navigate = useNavigate();
   const [errMess, setErrMess] = useState({
     resEmail: "",
     resPassword: "",
-    resRePassword: "",
   });
   const emailPattern =
     /^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$/;
   const [form, setForm] = useState({
     email: "",
     password: "",
-    rePassword: "",
   });
   const newErrMess = {
     resEmail: "",
     resPassword: "",
-    resRePassword: "",
   };
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -47,35 +47,36 @@ export const Register = () => {
       newErrMess.resPassword = "La contraseña debe tener mas de 6 caracteres";
       ok = false;
     }
-    if (!form.rePassword) {
-      newErrMess.resRePassword = "Debe confirmar la contraseña";
-      ok = false;
-    } else if (form.password !== form.rePassword) {
-      newErrMess.resRePassword = "Las contraseñas no coinciden";
-      ok = false;
-    }
+
     setErrMess(newErrMess);
 
     if (ok) {
       setSuccessMessage("Informacion Registrada Exitosamente");
 
+      handleToken(true);
+      handleUser(form.email);
+
       setTimeout(() => {
         setSuccessMessage("");
-      }, 4000);
+        navigate("/");
+      }, 2500);
       setForm({
         email: "",
         password: "",
-        rePassword: "",
       });
     }
   };
 
   return (
-    <>
+    <div
+      style={{ height: "77vh", width: "100vw" }}
+      className="d-flex align-items-center justify-content-center"
+    >
       <div className="modal-content">
         <div className="modal-body">
           <form className="d-flex flex-column justify-content-center gap-2">
             <div>
+              <h2>Login</h2>
               <h6 className="text-danger">{errMess.resEmail}</h6>
               <input
                 type="text"
@@ -99,22 +100,16 @@ export const Register = () => {
               />
             </div>
 
-            <div>
-              <h6 className="text-danger">{errMess.resRePassword}</h6>
-              <input
-                type="password"
-                name="rePassword"
-                value={form.rePassword}
-                onChange={handleChange}
-                placeholder="re-password"
-                required
-              />
-            </div>
             <h4 className="text-success">{successMessage}</h4>
             <button
               type="button"
               className="btn btn-primary"
               onClick={handleSubmit}
+              style={{
+                width: "15vw",
+                justifySelf: "center",
+                alignSelf: "center",
+              }}
             >
               Guardar cambios
             </button>
@@ -123,6 +118,6 @@ export const Register = () => {
 
         <div className="modal-footer"></div>
       </div>
-    </>
+    </div>
   );
 };
