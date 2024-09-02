@@ -1,13 +1,13 @@
 {
-  "homepage": "http://jfmtucci.github.io/ProyectoReact1",
-  "name": "proyecto1react",
+  "homepage": "http://jfmtucci.github.io/ProyectoReact5",
+  "name": "proyecto5react",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "predeploy": "vite build",
-    "build": "gh-pages -d dist",
+    "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
