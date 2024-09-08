@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../App.css";
 import { useNavigate, useParams } from "react-router";
+import { CartContext } from "../../context/CartContext";
 
 const Pizza = () => {
+  const { addToCart } = useContext(CartContext);
   const navigate = useNavigate();
   const [pizza, setPizza] = useState(null);
   const [err, setErr] = useState(null);
@@ -87,7 +89,7 @@ const Pizza = () => {
                     backgroundColor: "black",
                     color: "white",
                   }}
-                  onClick={() => navigate("/Cart")}
+                  onClick={() => addToCart(pizza)}
                 >
                   Añadir{"    "}
                   <img

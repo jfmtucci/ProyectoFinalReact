@@ -2,20 +2,17 @@ import "../../App.css";
 import { Register } from "../../pages/Register/Register";
 import { Modal } from "react-bootstrap"; // Asegúrate de tener react-bootstrap instalado
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Login } from "../../pages/Login/Login";
 
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 
 export const NavBar = ({ token, handleToken }) => {
   const [showModal, setShowModal] = useState(false);
   const [showModalLogin, setShowModalLogin] = useState(false);
 
-  function formatNumber(number) {
-    const formattedNumber = number.toLocaleString("en-US");
-    return formattedNumber.replace(/,/g, ".");
-  }
-  const total = formatNumber(0);
+  const { getTotal, formatNumber, getQuantity } = useContext(CartContext);
 
   return (
     <nav
@@ -92,11 +89,13 @@ export const NavBar = ({ token, handleToken }) => {
         </Link>
         <div className="container d-flex justify-content-end">
           <Link
-            className="btn btn-outline-light me-2 transparent-btn d-flex align-items-center"
+            className="btn btn-outline-light me-2 mt-1 gap-4 p-0  transparent-btn d-flex column justify-content-center align-items-center"
             type="button"
             to="/Cart"
           >
-            🛒 Total: ${total}
+            <p> 🛒 Total: ${getTotal()}</p>
+
+            <p>Cantidad: {getQuantity()} U </p>
           </Link>
         </div>
       </div>

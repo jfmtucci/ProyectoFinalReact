@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext } from "react";
 import "../../App.css";
+import { CartContext } from "../../context/CartContext";
 
-export const CartHandler = ({ pizza, incrementar, decrementar }) => {
+export const CartHandler = ({ pizza }) => {
+  const { addToCart, removeFromCart } = useContext(CartContext);
   function formatNumber(number) {
     const formattedNumber = number.toLocaleString("en-US");
     return formattedNumber.replace(/,/g, ".");
@@ -36,12 +38,12 @@ export const CartHandler = ({ pizza, incrementar, decrementar }) => {
                 fontSize: "2rem",
               }}
               onClick={() => {
-                decrementar(pizza.id);
+                removeFromCart(pizza);
               }}
             >
               -
             </button>
-            <h3>{pizza.count}</h3>
+            <h3>{pizza.quantity}</h3>
             <button
               type="button"
               style={{
@@ -53,7 +55,7 @@ export const CartHandler = ({ pizza, incrementar, decrementar }) => {
                 fontSize: "2rem",
               }}
               onClick={() => {
-                incrementar(pizza.id);
+                addToCart(pizza);
               }}
             >
               +

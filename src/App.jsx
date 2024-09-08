@@ -10,7 +10,7 @@ import Pizza from "./pages/Pizza/Pizza.jsx";
 import { Register } from "./pages/Register/Register.jsx";
 import { Profile } from "./pages/Profile/Profile.jsx";
 import { NotFound } from "./pages/NotFound/NotFound.jsx";
-import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
 function App() {
