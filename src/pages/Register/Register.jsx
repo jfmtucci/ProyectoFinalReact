@@ -1,9 +1,11 @@
 import "../../App.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router";
+import { NavBarContext } from "../../context/NavBarContext";
 
-export const Register = ({ handleToken, handleUser }) => {
+export const Register = () => {
+  const { handleToken, handleUser } = useContext(NavBarContext);
   const navigate = useNavigate();
   const [errMess, setErrMess] = useState({
     resEmail: "",

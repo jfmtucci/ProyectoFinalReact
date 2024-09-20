@@ -10,55 +10,43 @@ import Pizza from "./pages/Pizza/Pizza.jsx";
 import { Register } from "./pages/Register/Register.jsx";
 import { Profile } from "./pages/Profile/Profile.jsx";
 import { NotFound } from "./pages/NotFound/NotFound.jsx";
-
-import { useState } from "react";
+import ProtectedRoute from "./components/Security/ProtectedRoute.jsx";
+import PublicRoute from "./components/Security/PublicRoute.jsx";
 
 function App() {
-  const [token, setToken] = useState(false);
-
-  const handleToken = (updateToken) => {
-    setToken(updateToken);
-  };
-
-  const [user, setUser] = useState("");
-  const handleUser = (updateUser) => {
-    setUser(updateUser);
-  };
-
   return (
     <div style={{ width: "100vw", height: "100%" }}>
-      <NavBar token={token} handleToken={handleToken} />
+      <NavBar />
 
-      {/*<Link to="/register">Register</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/cart">Cart</Link>
-      <Link to="/Profile">Profile</Link>
-      <Link to="/404">NotFound</Link>
-      <Link to="/pizza/p001">Pizza</Link>*/}
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route
-          path={"register"}
+          path="/register"
           element={
-            <Register handleToken={handleToken} handleUser={handleUser} />
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
           }
         />
         <Route
-          path={"login"}
-          element={<Login handleToken={handleToken} handleUser={handleUser} />}
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
         />
         <Route path={"cart"} element={<Cart />} />
         <Route path={"/pizza/:id"} element={<Pizza />} />
         <Route
-          path={"profile"}
+          path="/profile"
           element={
-            <Profile
-              user={user}
-              handleUser={handleUser}
-              handleToken={handleToken}
-            />
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
           }
         />
+
         <Route path={"/404"} element={<NotFound />} />
         <Route path={"*"} element={<NotFound />} />
       </Routes>

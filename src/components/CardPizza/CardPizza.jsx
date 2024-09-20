@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import "../../App.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
 
 export const CardPizza = ({ pizza }) => {
   const navigate = useNavigate();
@@ -38,18 +39,19 @@ export const CardPizza = ({ pizza }) => {
             Precio: ${formatNumber(pizza.price)}
           </span>
           <div className="d-flex justify-content-around">
-            <button
+            <Link
               type="button"
               style={{
                 border: "1px solid black",
                 padding: "0.5rem",
                 fontSize: "0.5rem",
+                borderRadius: ".5rem",
               }}
-              onClick={() => navigate(`/pizza/${pizza.id}`)}
+              to={`/pizza/${pizza.id}`}
             >
               Ver Más{"    "}
               <img src="/src/assets/img/eyes.png" className="icon" alt="ojos" />
-            </button>
+            </Link>
             <button
               type="button"
               style={{

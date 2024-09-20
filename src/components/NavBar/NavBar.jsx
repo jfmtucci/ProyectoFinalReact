@@ -1,18 +1,16 @@
 import "../../App.css";
-import { Register } from "../../pages/Register/Register";
-import { Modal } from "react-bootstrap"; // Asegúrate de tener react-bootstrap instalado
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useContext, useState } from "react";
-import { Login } from "../../pages/Login/Login";
-
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
+import { NavBarContext } from "../../context/NavBarContext";
 
-export const NavBar = ({ token, handleToken }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [showModalLogin, setShowModalLogin] = useState(false);
+export const NavBar = () => {
+  //  const [showModal, setShowModal] = useState(false);
+  //const [showModalLogin, setShowModalLogin] = useState(false);
+  const { user, token, logOut } = useContext(NavBarContext);
 
-  const { getTotal, formatNumber, getQuantity } = useContext(CartContext);
+  const { getTotal, getQuantity } = useContext(CartContext);
 
   return (
     <nav
@@ -30,63 +28,75 @@ export const NavBar = ({ token, handleToken }) => {
           <img src="../img/pizza3.png" className="icon" alt="Pizza" />
           HOME
         </Link>
-        <Link
-          className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
-            !token ? "d-none" : ""
-          }`}
-          type="button"
-          id="Profile"
-          to="/profile"
-        >
-          <img
-            src="../img/candado abierto.png"
-            className="icon"
-            alt="Profile"
-          />
-          Profile
-        </Link>
-        <Link
-          className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
-            token ? "d-none" : ""
-          }`}
-          type="button"
-          id="Login"
-          //onClick={() => setShowModalLogin(true)}
-          to="/login"
-        >
-          <img src="../img/candadoConLlave2.png" className="icon" alt="Login" />
-          Login
-        </Link>
-        <Link
-          className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
-            !token ? "d-none" : ""
-          }`}
-          type="button"
-          id="Logout"
-          onClick={() => {
-            handleToken(false);
-          }}
-          to="/"
-        >
-          <img src="../img/candado cerrado.png" className="icon" alt="LogOut" />
-          LogOut
-        </Link>
-        <Link
-          className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center ${
-            token ? "d-none" : ""
-          }`}
-          type="button"
-          id="Register"
-          //onClick={() => setShowModal(true)}
-          to="/register"
-        >
-          <img
-            src="../img/candadoConLlave3.png"
-            className="icon"
-            alt="Register"
-          />
-          Register
-        </Link>
+        <div className="navbar navbar-expand-lg navbar-dark no-margin no-padding navegation">
+          {user && token ? (
+            <>
+              <Link
+                className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center `}
+                type="button"
+                id="Profile"
+                to="/profile"
+              >
+                <img
+                  src="../img/candado abierto.png"
+                  className="icon"
+                  alt="Profile"
+                />
+                Profile
+              </Link>
+              <Link
+                className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center `}
+                type="button"
+                id="Logout"
+                onClick={() => {
+                  logOut();
+                }}
+                to="/"
+              >
+                <img
+                  src="../img/candado cerrado.png"
+                  className="icon"
+                  alt="LogOut"
+                />
+                LogOut
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center `}
+                type="button"
+                id="Login"
+                //onClick={() => setShowModalLogin(true)}
+                to="/login"
+              >
+                <img
+                  src="../img/candadoConLlave2.png"
+                  className="icon"
+                  alt="Login"
+                />
+                Login
+              </Link>
+
+              <Link
+                className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center `}
+                type="button"
+                id="Register"
+                //onClick={() => setShowModal(true)}
+                to="/register"
+              >
+                <img
+                  src="../img/candadoConLlave3.png"
+                  className="icon"
+                  alt="Register"
+                />
+                Register
+              </Link>
+            </>
+          )}
+          ;
+        </div>
+
         <div className="container d-flex justify-content-end">
           <Link
             className="btn btn-outline-light me-2 mt-1 gap-4 p-0  transparent-btn d-flex column justify-content-center align-items-center"
@@ -99,7 +109,7 @@ export const NavBar = ({ token, handleToken }) => {
           </Link>
         </div>
       </div>
-      <Modal show={showModalLogin} onHide={() => setShowModalLogin(false)}>
+      {/*    <Modal show={showModalLogin} onHide={() => setShowModalLogin(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
@@ -120,7 +130,7 @@ export const NavBar = ({ token, handleToken }) => {
         <Modal.Footer>
           <button onClick={() => setShowModal(false)}>Close</button>
         </Modal.Footer>
-      </Modal>
+      </Modal>*/}
     </nav>
   );
 };

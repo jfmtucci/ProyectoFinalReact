@@ -1,10 +1,14 @@
 import "../../App.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router";
+import { NavBarContext } from "../../context/NavBarContext";
 
-export const Login = ({ handleToken, handleUser }) => {
+export const Login = () => {
+  const { handleToken, handleUser } = useContext(NavBarContext);
+
   const navigate = useNavigate();
+
   const [errMess, setErrMess] = useState({
     resEmail: "",
     resPassword: "",
@@ -15,11 +19,16 @@ export const Login = ({ handleToken, handleUser }) => {
     email: "",
     password: "",
   });
+
   const newErrMess = {
     resEmail: "",
     resPassword: "",
   };
   const [successMessage, setSuccessMessage] = useState("");
+
+  /*if (token) {
+    return <Navigate to="/" />;
+  }*/
 
   const handleChange = (e) => {
     setForm({

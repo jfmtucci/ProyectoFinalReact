@@ -1,9 +1,16 @@
-import React from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
-import {} from "react-router";
 
-export const Profile = ({ user, handleUser, handleToken }) => {
+import { NavBarContext } from "../../context/NavBarContext";
+
+export const Profile = () => {
+  const { user, logOut } = useContext(NavBarContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut();
+    navigate("/");
+  };
   return (
     <div
       style={{ height: "77vh", width: "100vw" }}
@@ -16,9 +23,7 @@ export const Profile = ({ user, handleUser, handleToken }) => {
         style={{ backgroundColor: "blue", borderColor: "black", width: "15vw" }}
         type="button"
         id="Logout2"
-        onClick={() => {
-          navigate("/"), handleToken(false), handleUser("");
-        }}
+        onClick={handleLogout}
       >
         <img src="../img/candado cerrado.png" className="icon" alt="LogOut" />
         LogOut
