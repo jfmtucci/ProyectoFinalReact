@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import PizzaProvider from "./context/PizzaContext.jsx";
 import CartProvider from "./context/CartContext.jsx";
 import NavBarProvider from "./context/NavBarContext.jsx";
+//import FetchProvider from "./context/FetchContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

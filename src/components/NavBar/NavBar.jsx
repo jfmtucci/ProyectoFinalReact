@@ -8,7 +8,7 @@ import { NavBarContext } from "../../context/NavBarContext";
 export const NavBar = () => {
   //  const [showModal, setShowModal] = useState(false);
   //const [showModalLogin, setShowModalLogin] = useState(false);
-  const { user, token, logOut } = useContext(NavBarContext);
+  const { logOut, tokenData, token } = useContext(NavBarContext);
 
   const { getTotal, getQuantity } = useContext(CartContext);
 
@@ -29,7 +29,7 @@ export const NavBar = () => {
           HOME
         </Link>
         <div className="navbar navbar-expand-lg navbar-dark no-margin no-padding navegation">
-          {user && token ? (
+          {tokenData || token ? (
             <>
               <Link
                 className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center `}

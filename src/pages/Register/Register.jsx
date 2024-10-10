@@ -3,9 +3,19 @@ import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router";
 import { NavBarContext } from "../../context/NavBarContext";
+//import { FetchContext } from "../../context/FetchContext";
 
 export const Register = () => {
-  const { handleToken, handleUser } = useContext(NavBarContext);
+  const {
+    token,
+    handleTokenData,
+    handleUser,
+    handleToken,
+    handlePass,
+    validateUser,
+    data,
+  } = useContext(NavBarContext);
+  //  const {  } = useContext(FetchContext);
   const navigate = useNavigate();
   const [errMess, setErrMess] = useState({
     resEmail: "",
@@ -33,7 +43,7 @@ export const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let ok = true;
 
@@ -61,14 +71,43 @@ export const Register = () => {
     }
     setErrMess(newErrMess);
 
+    /*const response = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: form.email,
+        password: form.password,
+      }),
+    });
+    const data = await response.json();
+    alert(data?.error || "Authentication successful!");
+    localStorage.setItem("token", data.token);
+    console.log(data);
+    if (token || data.token) {
+      ok = true;
+    } else {
+      ok = false;
+    }*/
+
     if (ok) {
+      handleUser(form.email);
+      handlePass(form.password);
+      const url = "http://localhost:5000/api/auth/register";
+      // console.log(url, form.email, form.password);
+
+      validateUser(url, form.email, form.password);
+
       setSuccessMessage("Informacion Registrada Exitosamente");
       handleToken(true);
-      handleUser(form.email);
+      handleTokenData(localStorage.getItem("token"));
+
       setTimeout(() => {
         setSuccessMessage("");
         navigate("/");
       }, 2500);
+
       setForm({
         email: "",
         password: "",

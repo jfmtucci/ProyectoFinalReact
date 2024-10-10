@@ -15,9 +15,26 @@ const Cart = () => {
   useEffect(() => {
     if (miRef.current) {
       if (!token || !user) miRef.current.disabled = true;
-      console.log(miRef);
+      //console.log(miRef);
     }
   }, [token, user]);
+
+  const pagar = async () => {
+    try {
+      const check = await fetch("http://localhost:5000/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer token_jwt`,
+        },
+        body: JSON.stringify({
+          cart,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div
@@ -39,6 +56,9 @@ const Cart = () => {
           ref={miRef}
           style={{
             border: "1px solid black",
+          }}
+          onClick={() => {
+            console.log(cart), alert("Compra Exitosa");
           }}
         >
           Pagar

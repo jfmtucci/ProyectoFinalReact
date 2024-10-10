@@ -4,19 +4,21 @@ import { useNavigate } from "react-router";
 import { NavBarContext } from "../../context/NavBarContext";
 
 export const Profile = () => {
-  const { user, logOut } = useContext(NavBarContext);
+  const { logOut, ValidateProfile, user } = useContext(NavBarContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logOut();
     navigate("/");
   };
+  ValidateProfile();
+  //console.log(user);
   return (
     <div
       style={{ height: "77vh", width: "100vw" }}
       className="d-flex row align-items-center justify-content-center"
     >
-      <h3>Usuario Actual: {user}</h3>
+      <h3>Usuario Actual: {user ? user : "Cargando..."}</h3>
 
       <button
         className={`btn btn-outline-light me-2 transparent-btn d-flex align-items-center  `}

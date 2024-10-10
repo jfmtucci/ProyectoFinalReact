@@ -3,10 +3,20 @@ import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router";
 import { NavBarContext } from "../../context/NavBarContext";
+//import { FetchContext } from "../../context/FetchContext";
+//import UseFetch from "../../components/hook/UseFetch";
 
 export const Login = () => {
-  const { handleToken, handleUser } = useContext(NavBarContext);
-
+  const {
+    handleTokenData,
+    handleUser,
+    handlePass,
+    data,
+    tokenData,
+    handleToken,
+    validateUser,
+  } = useContext(NavBarContext);
+  //const {  } = useContext(FetchContext);
   const navigate = useNavigate();
 
   const [errMess, setErrMess] = useState({
@@ -26,6 +36,13 @@ export const Login = () => {
   };
   const [successMessage, setSuccessMessage] = useState("");
 
+  /*useEffect(() => {
+    const storedForm = localStorage.getItem("formData");
+    if (storedForm) {
+      setForm(JSON.parse(storedForm));
+    }
+  }, []);*/
+
   /*if (token) {
     return <Navigate to="/" />;
   }*/
@@ -37,7 +54,7 @@ export const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let ok = true;
 
@@ -59,20 +76,68 @@ export const Login = () => {
 
     setErrMess(newErrMess);
 
+    /*const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: form.email,
+        password: form.password,
+      }),
+    });
+    const data = await response.json();
+    alert(data?.error || "Authentication successful!");
+
+    localStorage.setItem("token", data.token);*/
+
+    // console.log(data, data.token);
+    //console.log(localStorage.token);
+    //console.log(data);
+
     if (ok) {
-      setSuccessMessage("Informacion Registrada Exitosamente");
+      const url = "http://localhost:5000/api/auth/login";
+
+      handleUser(form.email);
+      handlePass(form.password);
+      validateUser(url, form.email, form.password);
+      //console.log(data);
+
+      handleTokenData(localStorage.getItem("token"));
 
       handleToken(true);
-      handleUser(form.email);
+
+      //console.log(tokenData);
+      setSuccessMessage("Informacion Registrada Exitosamente");
 
       setTimeout(() => {
         setSuccessMessage("");
         navigate("/");
       }, 2500);
+
       setForm({
         email: "",
         password: "",
       });
+
+      //const fetchData = UseFetch("http://localhost:5000/api/auth/login");
+      // console.log(fetchData);
+      //if (fetchData.data && fetchData.data.token) {
+
+      //  } else if (fetchData.error) {
+      //  setErrMess({ ...newErrMess, resPassword: fetchData.error });
+
+      /*if (data && data.token) {
+        console.log(data);
+  
+        ok = true;
+      } else {
+        ok = false;
+      }*/
+      //console.log(ok);
+      if (!ok) {
+        return;
+      }
     }
   };
 
